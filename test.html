@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="scripts.js"></script>
+
+  <title>TNT</title>
+  <link rel="icon" type="image/x-icon" href="assets/imgs/tnt.png">
+<body>
+
+<header>
+  <img id="logo1" src="assets/imgs/Book.png" alt="Minecraft Logo" class="logo"/>
+  <nav class="navigation">
+    <ul>
+      <li class="linkEffect"><a href="home.html">Home</a></li>
+      <li class="linkEffect"><a href="commandblock.html">Command Block</a></li>
+      <li class="linkEffect"><a href="tnt.html">TNT</a></li>
+      <li class="linkEffect"><a href="gamemode.html">Gamemode</a></li>
+      <li class="linkEffect"><a href="profile.php">Setting</a></li>
+    </ul>
+  </nav>
+</header>
+
+<hr>
+
+<section class="hero">
+    
+    <div class="steaveContainer">
+      <img class="steaveHead" src="assets/imgs/steave.png" alt="steaveHead" />
+    </div>
+    <audio id="clickSound" src="assets/audio/click.mp3"></audio>
+    <audio id="linkClickSound" src="assets/audio/click.mp3"></audio>
+  </section>
+  <img class="Warden" src="assets/imgs/warden.png" alt="Warden" />
+  
+
+
+  <div id="loadingScreen">
+    <div class="minecraftIntro">
+      <h1 class="logoText">Minecraft</h1>
+      <div class="loadingDots">
+        <span>Loading To TNT...</span>
+      </div>
+    </div>
+  </div>
+  <div id="fallingBlocksContainer"></div>
+  
+  <title>أوامر TNT في ماينكرافت</title>
+  <link rel="icon" type="image/x-icon" href="assets/imgs/tnt.png">
+  <style>
+    body {
+      background: #1a1a1a;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 40px;
+      direction: rtl;
+    }
+    .commands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .command-box {
+      background: #2a2a2a;
+      border-left: 4px solid #00ff88;
+      border-radius: 10px;
+      padding: 15px 20px;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+      transition: 0.3s;
+      position: relative;
+    }
+    .command-box:hover {
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    }
+    .command-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .command-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #00ff88;
+    }
+    .command-desc {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+    .command-code {
+      background: #111;
+      border-radius: 5px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #00ffcc;
+      direction: ltr;
+      overflow-x: auto;
+    }
+    .command-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn {
+      background: transparent;
+      border: none;
+      color: #00ff88;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      color: #00cc66;
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.85);
+      width: 100%;
+      height: 100%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: #1c1c1c;
+      padding: 25px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 20px #00ff99;
+      position: relative;
+    }
+    .modal-content h2 {
+      color: #00ff99;
+      margin-bottom: 10px;
+    }
+    .modal-content p {
+      color: #ccc;
+    }
+    .modal-content img,
+    .modal-content video {
+      max-width: 100%;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .close-btn:hover {
+      color: #ff4444;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center; color:#00ff88; margin-bottom:30px;">💣 جميع أوامر TNT في ماينكرافت</h2>
+  <div class="commands-grid" id="commands-container">
+    <!-- الأوامر يتم تعبئتها ديناميكياً عبر جافاسكربت -->
+  </div>
+
+  <!-- نوافذ الشرح -->
+  <div id="modals-container"></div>
+
+  <script>
+    const commands = [
+      {
+        title: 'TNT أساسي 🧨',
+        desc: 'إنشاء كتلة TNT عادية',
+        code: '/give @p tnt',
+        explanation: 'هذا الأمر يعطي اللاعب TNT عادي لاستخدامه.',
+        media: '<img src="https://i.imgur.com/JlVvKZU.png" alt="شرح TNT أساسي">'
+      },
+      {
+        title: 'TNT منفجر 💥',
+        desc: 'ينفجر عند استدعائه مباشرة',
+        code: '/summon tnt ~ ~ ~ {Fuse:0}',
+        explanation: 'TNT مفعل بدون تأخير (Fuse:0).',
+        media: '<video src="https://www.example.com/explosion.mp4" controls></video>'
+      },
+      {
+        title: 'TNT ضخم 💣',
+        desc: 'انفجار قوي جداً',
+        code: '/summon tnt ~ ~ ~ {ExplosionPower:100}',
+        explanation: 'ينشئ TNT بانفجار هائل جداً.',
+        media: '<img src="https://i.imgur.com/B4jEJJ6.png" alt="TNT ضخم">'
+      },
+      {
+        title: 'ملء TNT 📦',
+        desc: 'ملء منطقة كاملة بـ TNT',
+        code: '/fill ~1 ~ ~1 ~10 ~ ~10 tnt',
+        explanation: 'يقوم بملء منطقة مكعبات TNT تلقائيًا.',
+        media: '<img src="https://i.imgur.com/1EjG9jG.png" alt="fill tnt">'
+      },
+      {
+        title: 'TNT برق ⚡',
+        desc: 'TNT تستدعي صاعقة عند الانفجار',
+        code: '/execute as @e[type=tnt] run summon lightning_bolt',
+        explanation: 'عند تواجد TNT يتم استدعاء صاعقة برق في نفس المكان.',
+        media: '<img src="https://i.imgur.com/m2hL1vY.png" alt="lightning">'
+      },
+      {
+        title: 'TNT تطير 🚀',
+        desc: 'جعل TNT ترتفع للأعلى',
+        code: '/tp @e[type=tnt] ~ ~10 ~',
+        explanation: 'ينقل كل TNT للأعلى بشكل مفاجئ.',
+        media: '<img src="https://i.imgur.com/fPQa4F2.png" alt="fly tnt">'
+      },
+      {
+        title: 'TNT مؤجلة ⏱️',
+        desc: 'تأخير الانفجار',
+        code: '/summon tnt ~ ~ ~ {Fuse:100}',
+        explanation: 'TNT تتأخر في الانفجار لمدة أطول.',
+        media: '<img src="https://i.imgur.com/jXQZi6I.png" alt="delayed fuse">'
+      },
+      {
+        title: 'مسح TNT ❌',
+        desc: 'إزالة كل TNT من العالم',
+        code: '/kill @e[type=tnt]',
+        explanation: 'يقتل كل TNT في العالم فوراً.',
+        media: '<img src="https://i.imgur.com/btIqk8K.png" alt="kill tnt">'
+      },
+      {
+        title: 'مدة الفيوز 📊',
+        desc: 'قراءة توقيت الفيوز',
+        code: '/data get entity @e[type=tnt,limit=1] Fuse',
+        explanation: 'يعرض مدة الفيوز (الانفجار) لأول TNT موجودة.',
+        media: '<img src="https://i.imgur.com/Sku7MaT.png" alt="get fuse">'
+      },
+      {
+        title: 'التحقق من TNT 🔍',
+        desc: 'يتأكد إن كان يوجد TNT',
+        code: '/execute if entity @e[type=tnt] run say TNT موجود',
+        explanation: 'ينفذ أمر فقط في حال وجود TNT.',
+        media: '<img src="https://i.imgur.com/VrJMN1f.png" alt="check tnt">'
+      }
+    ];
+
+    const container = document.getElementById("commands-container");
+    const modalContainer = document.getElementById("modals-container");
+
+    commands.forEach((cmd, i) => {
+      const id = `code${i}`;
+      const modalId = `modal${i}`;
+      container.innerHTML += `
+        <div class="command-box">
+          <div class="command-header">
+            <div class="command-title">${cmd.title}</div>
+          </div>
+          <div class="command-desc">${cmd.desc}</div>
+          <div class="command-code" id="${id}">${cmd.code}</div>
+          <div class="command-actions">
+            <button class="btn" onclick="copyCommand('${id}')">📋 نسخ</button>
+            <button class="btn">♡ مفضلة</button>
+            <button class="btn" onclick="openModal('${modalId}')">📖 شرح مفصل</button>
+          </div>
+        </div>
+      `;
+      modalContainer.innerHTML += `
+        <div class="modal" id="${modalId}">
+          <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('${modalId}')">×</button>
+            <h2>${cmd.title}</h2>
+            <p>${cmd.explanation}</p>
+            ${cmd.media}
+          </div>
+        </div>
+      `;
+    });
+
+    function copyCommand(id) {
+      const code = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert("✅ تم نسخ الأمر!");
+      });
+    }
+
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = "flex";
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+  </script>
+</body>
+</html>

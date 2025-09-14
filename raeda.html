@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>English Learning Platform</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    header {
+      background-color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      color: #00ffcc;
+    }
+
+    .social-icons a {
+      margin-left: 15px;
+      color: white;
+      font-size: 24px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #00ffcc;
+    }
+
+    .videos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .video-card {
+      background: #222;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 10px #000;
+      transition: transform 0.3s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .video-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .video-card h3 {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #00ffcc;
+    }
+
+    .rating {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .rating span {
+      font-size: 30px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .rating span.active {
+      color: gold;
+    }
+
+    .comments {
+      padding: 20px 40px;
+    }
+
+    .comments h2 {
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      resize: none;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #00ffcc;
+      color: black;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .comment-box {
+      margin-top: 20px;
+      background: #333;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .comment-box p {
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>English Learning Platform</h1>
+    <div class="social-icons">
+      <a href="https://youtube.com/" target="_blank" title="Our YouTube Channel">📺</a>
+      <a href="https://facebook.com/" target="_blank" title="Our Facebook Page">📘</a>
+    </div>
+  </header>
+
+  <section class="videos">
+    <div class="video-card">
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Video Thumbnail"/>
+      </a>
+      <h3>Learn English - Basics</h3>
+    </div>
+    <div class="video-card">
+      <a href="https://www.youtube.com/watch?v=abc123xyz" target="_blank">
+        <img src="https://img.youtube.com/vi/abc123xyz/hqdefault.jpg" alt="Video Thumbnail"/>
+      </a>
+      <h3>Daily Conversations</h3>
+    </div>
+    <div class="video-card">
+      <a href="https://www.youtube.com/watch?v=example456" target="_blank">
+        <img src="https://img.youtube.com/vi/example456/hqdefault.jpg" alt="Video Thumbnail"/>
+      </a>
+      <h3>English Grammar</h3>
+    </div>
+  </section>
+
+  <section class="rating">
+    <h2>⭐ قيّم المنصة</h2>
+    <div id="stars">
+      <span data-rate="1">★</span>
+      <span data-rate="2">★</span>
+      <span data-rate="3">★</span>
+      <span data-rate="4">★</span>
+      <span data-rate="5">★</span>
+    </div>
+  </section>
+
+  <section class="comments">
+    <h2>💬 التعليقات</h2>
+    <textarea id="commentText" rows="4" placeholder="اكتب تعليقك هنا..."></textarea>
+    <button onclick="addComment()">إرسال</button>
+
+    <div id="commentList"></div>
+  </section>
+
+  <footer>
+    © 2025 - All Rights Reserved - English Learning Platform
+  </footer>
+
+  <script>
+    const stars = document.querySelectorAll('#stars span');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        stars.forEach(s => s.classList.remove('active'));
+        star.classList.add('active');
+        let rating = star.getAttribute('data-rate');
+        alert("شكراً لتقييمك " + rating + " نجوم!");
+      });
+    });
+
+    function addComment() {
+      const text = document.getElementById('commentText').value.trim();
+      if (text) {
+        const commentBox = document.createElement('div');
+        commentBox.className = 'comment-box';
+        commentBox.innerHTML = `<p>${text}</p>`;
+        document.getElementById('commentList').appendChild(commentBox);
+        document.getElementById('commentText').value = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
